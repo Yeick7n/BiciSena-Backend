@@ -1,15 +1,18 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Marca } from 'src/marcas/entities/marca.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Bicicleta {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    precio_alquiler: number
+  @Column()
+  precio_alquiler: number;
 
-    //COLOR
-    //ESTADO
-    //R
+  @Column()
+  color: string;
+
+  @ManyToOne(() => Marca, (marca) => marca.bicicletas)
+  marca: Marca
 }

@@ -9,6 +9,9 @@ import { EmailModule } from './email/email.module';
 import { AuthModule } from './auth/auth.module';
 import { RolModule } from './rol/rol.module';
 import { BicicletasModule } from './bicicletas/bicicletas.module';
+import { MarcasModule } from './marcas/marcas.module';
+import { CiclopaseosModule } from './ciclopaseos/ciclopaseos.module';
+import { AlquilerModule } from './alquiler/alquiler.module';
 
 @Module({
   imports: [
@@ -28,6 +31,9 @@ import { BicicletasModule } from './bicicletas/bicicletas.module';
     AuthModule,
     RolModule,
     BicicletasModule,
+    MarcasModule,
+    CiclopaseosModule,
+    AlquilerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Transform } from "class-transformer";
-import { IsEmail, IsNotEmpty } from "class-validator";
+import { IsEmail, IsNotEmpty, IsNumber, IsPositive } from "class-validator";
 import { Rol } from "src/rol/entities/rol.entity";
 
 export class CreateUsuarioDto {
@@ -20,6 +20,15 @@ export class CreateUsuarioDto {
     @IsNotEmpty()
     password: string;
 
+    @IsNotEmpty()
+    @IsNumber()
+    @IsPositive()
+    edad: number
+
+    @IsNotEmpty()
+    @IsNumber()
+    estrato: number
+    
     confirmToken: string;
 
     isConfirmed: boolean;

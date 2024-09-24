@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { BicicletasService } from './bicicletas.service';
 import { CreateBicicletaDto } from './dto/create-bicicleta.dto';
@@ -7,28 +8,28 @@ import { UpdateBicicletaDto } from './dto/update-bicicleta.dto';
 export class BicicletasController {
   constructor(private readonly bicicletasService: BicicletasService) {}
 
-  @Post()
+  @Post('crear')
   create(@Body() createBicicletaDto: CreateBicicletaDto) {
     return this.bicicletasService.create(createBicicletaDto);
   }
 
-  @Get()
+  @Get('obtenerTodos')
   findAll() {
     return this.bicicletasService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.bicicletasService.findOne(+id);
+  @Get('obtener/:id')
+  findOne(@Param('id') id: number) {
+    return this.bicicletasService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBicicletaDto: UpdateBicicletaDto) {
-    return this.bicicletasService.update(+id, updateBicicletaDto);
+  @Patch('actualizar/:id')
+  update(@Param('id') id: number, @Body() updateBicicletaDto: UpdateBicicletaDto) {
+    return this.bicicletasService.update(id, updateBicicletaDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.bicicletasService.remove(+id);
+  @Delete('eliminar/:id')
+  remove(@Param('id') id: number) {
+    return this.bicicletasService.remove(id);
   }
 }

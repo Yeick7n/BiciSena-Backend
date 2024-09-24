@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Transform } from "class-transformer";
-import { IsEmail, IsNotEmpty, MinLength } from "class-validator";
+import { IsEmail, IsNotEmpty, IsNumber, MinLength } from "class-validator";
 import { Rol } from "src/rol/entities/rol.entity";
 
 export class RegisterDto {
@@ -21,6 +21,14 @@ export class RegisterDto {
     @MinLength(6)
     @IsNotEmpty()
     password: string;
+
+    @IsNotEmpty()
+    @IsNumber()
+    edad: number;
+
+    @IsNotEmpty()
+    @IsNumber()
+    estrato: number;
 
     rol: Rol;
 
