@@ -137,13 +137,61 @@ export class AlquilerService {
     return await this.alquilerRepository.find()
   }
 
-  // async findAllByUser(idUsuario, idAlquiler){
+// GANANCIAS TOTALES POR REGIONAL
+  async calcularGananciasTotalesPorRegional(regional: string): Promise<number> {
+    const alquileres = await this.alquilerRepository
+      .createQueryBuilder('alquiler')
+      .innerJoinAndSelect('alquiler.bicicleta', 'bicicleta')
+      .where('bicicleta.regional = :regional', { regional })
+      .getMany();
+
+    const gananciasTotales = alquileres.reduce((total, alquiler) => {
+      return total + alquiler.total_pagar;
+    }, 0);
+
+    return gananciasTotales;
+  }
+
+  async calcularGananciasPorMesPorRegional(mes: number, año: number, regional: string): Promise<number> {
+    const alquileres = await this.alquilerRepository
+      .createQueryBuilder('alquiler')
+      .innerJoinAndSelect('alquiler.bicicleta', 'bicicleta')
+      .where('MONTH(alquiler.fecha_alquiler) = :mes', { mes })
+      .andWhere('YEAR(alquiler.fecha_alquiler) = :año', { año })
+      .andWhere('bicicleta.regional = :regional', { regional })
+      .getMany();
+
+    const gananciasPorMes = alquileres.reduce((total, alquiler) => {
+      return total + alquiler.total_pagar;
+    }, 0);
+
+    return gananciasPorMes;
+  }
 
 
-  //   return await this.alquilerRepository.find({
-  //     where: {
-  //       id:
-  //     }
-  //   })
-  // }
+  // GANANCIAS TOTALES
+
+  async calcularGananciasTotales(): Promise<number> {
+    const alquileres = await this.alquilerRepository.find();
+    
+    const gananciasTotales = alquileres.reduce((total, alquiler) => {
+      return total + alquiler.total_pagar;
+    }, 0);
+
+    return gananciasTotales;
+  }
+
+  async calcularGananciasPorMes(mes: number, año: number): Promise<number> {
+    const alquileres = await this.alquilerRepository
+      .createQueryBuilder('alquiler')
+      .where('MONTH(alquiler.fecha_alquiler) = :mes', { mes })
+      .andWhere('YEAR(alquiler.fecha_alquiler) = :año', { año })
+      .getMany();
+
+    const gananciasPorMes = alquileres.reduce((total, alquiler) => {
+      return total + alquiler.total_pagar;
+    }, 0);
+
+    return gananciasPorMes;
+  }
 }

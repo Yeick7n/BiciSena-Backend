@@ -38,6 +38,7 @@ export class CreateUsuarioDto {
 
   rol: Rol;
 
+  @IsNotEmpty()
   regional: Regional;
 
   ciclopaseos: Ciclopaseo[];
