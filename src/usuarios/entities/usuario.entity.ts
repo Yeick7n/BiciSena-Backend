@@ -2,8 +2,9 @@
 
 import { Alquiler } from "src/alquiler/entities/alquiler.entity";
 import { Ciclopaseo } from "src/ciclopaseos/entities/ciclopaseo.entity";
+import { Regional } from "src/regional/entities/regional.entity";
 import { Rol } from "src/rol/entities/rol.entity";
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Usuario {
@@ -38,10 +39,15 @@ export class Usuario {
     @Column()
     estrato: number;
 
-
     @ManyToOne(() => Rol, (rol) => rol.usuarios,{ eager: true })
     rol: Rol;
+
+    @OneToMany(() => Alquiler, (alquiler) => alquiler.usuario)
+    alquileres: Alquiler[]
     
+    @ManyToOne(() => Regional, (regional) => regional.usuarios)
+    regional: Regional
+
     @ManyToMany(() => Ciclopaseo, (ciclopaseo) => ciclopaseo.usuarios, {
         cascade: true
     })
@@ -56,7 +62,6 @@ export class Usuario {
     })
     ciclopaseos: Ciclopaseo[]
 
-    @ManyToMany(() => Alquiler, (alquiler) => alquiler.usuarios)
-    alquileres: Alquiler[]
+
 
 }

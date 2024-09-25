@@ -12,6 +12,7 @@ import { BicicletasModule } from './bicicletas/bicicletas.module';
 import { MarcasModule } from './marcas/marcas.module';
 import { CiclopaseosModule } from './ciclopaseos/ciclopaseos.module';
 import { AlquilerModule } from './alquiler/alquiler.module';
+import { RegionalModule } from './regional/regional.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AlquilerModule } from './alquiler/alquiler.module';
     MarcasModule,
     CiclopaseosModule,
     AlquilerModule,
+    RegionalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

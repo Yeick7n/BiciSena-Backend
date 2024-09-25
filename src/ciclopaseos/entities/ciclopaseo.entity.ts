@@ -11,7 +11,7 @@ export class Ciclopaseo {
   fecha: Date;
 
   @Column()
-  ubicación: string;
+  ubicacion: string;
 
   @ManyToMany(() => Usuario, (usuario) => usuario.ciclopaseos)
   usuarios: Usuario[]

@@ -4,12 +4,15 @@ import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Usuario } from './entities/usuario.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
+import { Ciclopaseo } from 'src/ciclopaseos/entities/ciclopaseo.entity';
 
 @Injectable()
 export class UsuariosService {
   constructor(
     @InjectRepository(Usuario) private usuarioRepository: Repository<Usuario>,
+    @InjectRepository(Ciclopaseo)
+    private ciclopaseoRepository: Repository<Ciclopaseo>,
   ) {}
 
   async create(createUsuarioDto: CreateUsuarioDto) {
@@ -18,7 +21,7 @@ export class UsuariosService {
 
   async findAll() {
     const usersFound = await this.usuarioRepository.find({
-      relations: ['rol']
+      relations: ['rol', 'alquileres', 'regional', 'ciclopaseos'],
     });
 
     if (usersFound.length === 0) {
@@ -33,7 +36,7 @@ export class UsuariosService {
       where: {
         id,
       },
-      relations: ['rol']
+      relations: ['rol', 'alquileres', 'regional', 'ciclopaseos'],
     });
 
     if (!userFound) {
@@ -48,13 +51,30 @@ export class UsuariosService {
       where: {
         id,
       },
+      relations: ['rol', 'alquileres', 'regional', 'ciclopaseos'],
     });
 
     if (!userFound) {
       throw new ConflictException('User not found');
     }
 
-    return await this.usuarioRepository.update(id, updateUsuarioDto);
+    const ciclopaseos = await this.ciclopaseoRepository.find({
+      where: {
+        id: In(updateUsuarioDto.ciclopaseos),
+      },
+    });
+
+    if (ciclopaseos.length <= 0) {
+      return await this.usuarioRepository.update(id, updateUsuarioDto);
+    } else {
+      const updateUsuario = {
+        ...userFound,
+        ...updateUsuarioDto,
+        ciclopaseos,
+      };
+
+      return await this.usuarioRepository.save(updateUsuario);
+    }
   }
 
   async remove(id: number) {
@@ -79,7 +99,7 @@ export class UsuariosService {
     const userFound = await this.usuarioRepository.findOne({
       where: {
         usuario,
-      }
+      },
     });
 
     if (userFound) {
@@ -120,6 +140,4 @@ export class UsuariosService {
 
     return tokenFound;
   }
-
-
 }

@@ -48,8 +48,8 @@ export class AuthService {
     await this.emailService.enviarEmail(
       newUser.email,
       'CONFIRMACIÓN DE EMAIL',
-      `Hola ${newUser.usuario}, \n\n Te damos la bienvenida a RutaOptima, gracias por registrarte en la plataforma.\n
-      Por favor, confirma tu correo haciendo clic en el siguiente enlace: http://localhost:3000/confirmar/${confirmToken}`,
+      `Hola ${newUser.usuario}, \n\n Te damos la bienvenida a BiciSena, gracias por registrarte en la plataforma.\n
+      Por favor, confirma tu correo haciendo clic en el siguiente enlace: http://localhost:3000/#/confirmar/${confirmToken}`,
     );
 
     return newUser;

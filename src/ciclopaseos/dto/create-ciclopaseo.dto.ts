@@ -1,13 +1,21 @@
 /* eslint-disable prettier/prettier */
-import { IsDateString, IsNotEmpty, IsString } from "class-validator";
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { Usuario } from 'src/usuarios/entities/usuario.entity';
 
 export class CreateCiclopaseoDto {
+  @IsNotEmpty()
+  @IsDateString()
+  fecha: Date;
 
-    @IsNotEmpty()
-    @IsDateString()
-    fecha: Date
+  @IsNotEmpty()
+  @IsString()
+  ubicacion: string;
 
-    @IsNotEmpty()
-    @IsString()
-    ubicación: string;
+  @IsOptional()
+  usuarios: Usuario[];
 }

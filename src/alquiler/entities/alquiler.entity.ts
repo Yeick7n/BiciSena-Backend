@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
+import { Bicicleta } from 'src/bicicletas/entities/bicicleta.entity';
 import { Usuario } from 'src/usuarios/entities/usuario.entity';
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Alquiler {
@@ -8,28 +9,27 @@ export class Alquiler {
   id: number;
 
   @Column()
-  hora_salida: Date;
+  fecha_alquiler: Date
 
   @Column()
-  hora_entrega: Date;
+  hora_inicio: string;
 
   @Column()
-  valor: number;
+  hora_fin: string;
 
   @Column()
-  tarifa_adicional: number;
+  costo_alquiler: number;
 
-  @ManyToMany(() => Usuario, (usuario) => usuario.alquileres, {
-    cascade: true,
-  })
-  @JoinTable({
-    name: 'usuarios_alquiler',
-    joinColumn: {
-      name: 'alquiler_id',
-    },
-    inverseJoinColumn: {
-      name: 'usuarios_id',
-    },
-  })
-  usuarios: Usuario[]
+  @Column()
+  Descuento: number;
+
+  @Column()
+  Total_pagar: number;
+
+  @ManyToOne(() => Bicicleta, (bicicleta) => bicicleta.alquileres)
+  bicicleta: Bicicleta
+
+  @ManyToOne(() => Usuario, (usuario) => usuario.alquileres)
+  usuario: Usuario
+
 }

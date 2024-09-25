@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
+import { Alquiler } from 'src/alquiler/entities/alquiler.entity';
 import { Marca } from 'src/marcas/entities/marca.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Regional } from 'src/regional/entities/regional.entity';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Bicicleta {
@@ -15,4 +17,11 @@ export class Bicicleta {
 
   @ManyToOne(() => Marca, (marca) => marca.bicicletas)
   marca: Marca
+
+  @ManyToOne(() => Regional, (regional) => regional.bicicletas)
+  regional: Regional
+
+  @OneToMany(() => Alquiler, (alquiler) => alquiler.bicicleta)
+  alquileres: Alquiler[]
+
 }
