@@ -1,4 +1,15 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateAlquilerDto } from './create-alquiler.dto';
+/* eslint-disable prettier/prettier */
+import { IsOptional, IsString, IsDateString } from 'class-validator';
 
-export class UpdateAlquilerDto extends PartialType(CreateAlquilerDto) {}
+export class UpdateAlquilerDto {
+  @IsOptional()
+  @IsDateString()
+  fecha_alquiler?: Date;
+
+  @IsOptional()
+  @IsString()
+  hora_inicio?: string;
+
+  @IsOptional()
+  bicicletaId?: number;  
+}

@@ -3,7 +3,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { RegionalService } from './regional.service';
 import { CreateRegionalDto } from './dto/create-regional.dto';
 import { UpdateRegionalDto } from './dto/update-regional.dto';
+// import { AuthGuard } from 'src/guards/auth.guard';
 
+// @UseGuards(AuthGuard)
 @Controller('regional')
 export class RegionalController {
   constructor(private readonly regionalService: RegionalService) {}
