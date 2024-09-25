@@ -52,5 +52,19 @@ export class AlquilerController {
 
   // ganancias generales
 
+
+  @Get('ganancias-totales')
+  async obtenerGananciasTotales(): Promise<number> {
+    return await this.alquilerService.calcularGananciasTotales();
+  }
+
+  // Endpoint para obtener las ganancias por mes
+  @Get('ganancias-por-mes')
+  async obtenerGananciasPorMes(
+    @Query('mes') mes: number,
+    @Query('año') año: number,
+  ): Promise<number> {
+    return await this.alquilerService.calcularGananciasPorMes(mes, año);
+  }
   
 }
