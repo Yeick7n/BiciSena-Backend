@@ -14,17 +14,17 @@ export class Alquiler {
   @Column()
   hora_inicio: string;
 
-  @Column()
+  @Column({ nullable: true })
   hora_fin: string;
 
-  @Column()
+  @Column({ nullable: true, type: 'float' })
   costo_alquiler: number;
 
-  @Column()
-  Descuento: number;
+  @Column({ nullable: true, type: 'float' })
+  descuento: number;
 
-  @Column()
-  Total_pagar: number;
+  @Column({ nullable: true, type: 'float' })
+  total_pagar: number;
 
   @ManyToOne(() => Bicicleta, (bicicleta) => bicicleta.alquileres)
   bicicleta: Bicicleta

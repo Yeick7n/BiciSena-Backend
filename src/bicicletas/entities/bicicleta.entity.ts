@@ -14,7 +14,10 @@ export class Bicicleta {
 
   @Column()
   color: string;
-
+  
+  @Column()
+  estado: string
+  
   @ManyToOne(() => Marca, (marca) => marca.bicicletas)
   marca: Marca
 

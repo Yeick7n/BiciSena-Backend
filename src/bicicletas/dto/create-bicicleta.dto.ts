@@ -14,4 +14,6 @@ export class CreateBicicletaDto {
   @IsNotEmpty()
   marca: Marca;
 
+  @IsNotEmpty()
+  estado: string;
 }
