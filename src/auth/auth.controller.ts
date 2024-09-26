@@ -21,6 +21,7 @@ export class AuthController {
   async confirmar(@Param('token') token: string) {
     const userFound = await this.usuariosService.findconfirmToken(token);
 
+    console.log('hola' , userFound);
     if (!userFound) {
       throw new Error('User not found');
     }
@@ -29,7 +30,9 @@ export class AuthController {
     }
 
     userFound.isConfirmed = true;
-    const userUpdated = await this.usuariosService.update(userFound.id, userFound);
+    const userUpdated = await this.usuariosService.updateUsuario(userFound.id, userFound);
+
+    console.log('adios' ,userUpdated);
 
     return {
       message: 'User confirmed', 

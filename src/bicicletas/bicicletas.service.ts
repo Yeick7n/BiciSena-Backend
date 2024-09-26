@@ -68,13 +68,16 @@ export class BicicletasService {
     return await this.bicicletaRepository.delete(id);
   }
 
-  async findBiciByRegional(id: number) {
-    return await this.bicicletaRepository.find({
+  async findBiciByRegional(id:number) {
+    const BicicletaFound = await this.bicicletaRepository.find({
       where: {
         regional: {
-          id,
-        },
+          id
+        }
       },
+      relations: ['regional'],
     });
+
+    return BicicletaFound
   }
 }

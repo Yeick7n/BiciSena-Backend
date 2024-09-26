@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Transform } from 'class-transformer';
-import { IsBoolean, IsEmail, IsNotEmpty, IsNumber, IsString, MinLength } from 'class-validator';
-import { Ciclopaseo } from 'src/ciclopaseos/entities/ciclopaseo.entity';
+import { IsBoolean, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
 import { Regional } from 'src/regional/entities/regional.entity';
 import { Rol } from 'src/rol/entities/rol.entity';
 
@@ -38,15 +37,18 @@ export class RegisterDto {
   @IsNotEmpty()
   regional: Regional;
 
-  @IsNotEmpty()
-  ciclopaseos: Ciclopaseo[];
+  // @IsNotEmpty()
+  // ciclopaseos: Ciclopaseo[];
 
+  @IsOptional()
   @IsString()
   confirmToken: string;
 
+  @IsOptional()
   @IsBoolean()
   isConfirmed: boolean;
 
+  @IsOptional()
   @IsBoolean()
   isLogueado: boolean;
 }

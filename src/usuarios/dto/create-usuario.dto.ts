@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Transform } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
-import { Ciclopaseo } from 'src/ciclopaseos/entities/ciclopaseo.entity';
 import { Regional } from 'src/regional/entities/regional.entity';
 import { Rol } from 'src/rol/entities/rol.entity';
 
@@ -41,5 +40,4 @@ export class CreateUsuarioDto {
   @IsNotEmpty()
   regional: Regional;
 
-  ciclopaseos: Ciclopaseo[];
 }

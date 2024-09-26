@@ -4,7 +4,7 @@ import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Usuario } from './entities/usuario.entity';
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Ciclopaseo } from 'src/ciclopaseos/entities/ciclopaseo.entity';
 
 @Injectable()
@@ -46,35 +46,49 @@ export class UsuariosService {
     return userFound;
   }
 
-  async update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
+  // async update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
+  //   const userFound = await this.usuarioRepository.findOne({
+  //     where: {
+  //       id,
+  //     },
+  //     relations: ['rol', 'alquileres', 'regional', 'ciclopaseos'],
+  //   });
+
+  //   if (!userFound) {
+  //     throw new ConflictException('User not found');
+  //   }
+
+  //   const ciclopaseos = await this.ciclopaseoRepository.find({
+  //     where: {
+  //       id: In(updateUsuarioDto.ciclopaseos),
+  //     },
+  //   });
+
+  //   if (ciclopaseos.length <= 0) {
+  //     return await this.usuarioRepository.update(id, updateUsuarioDto);
+  //   } else {
+  //     const updateUsuario = {
+  //       ...userFound,
+  //       ...updateUsuarioDto,
+  //       ciclopaseos,
+  //     };
+
+  //     return await this.usuarioRepository.save(updateUsuario);
+  //   }
+  // }
+
+  async updateUsuario(id: number, updateUsuarioDto: UpdateUsuarioDto) {
     const userFound = await this.usuarioRepository.findOne({
       where: {
         id,
       },
-      relations: ['rol', 'alquileres', 'regional', 'ciclopaseos'],
     });
 
     if (!userFound) {
       throw new ConflictException('User not found');
     }
 
-    const ciclopaseos = await this.ciclopaseoRepository.find({
-      where: {
-        id: In(updateUsuarioDto.ciclopaseos),
-      },
-    });
-
-    if (ciclopaseos.length <= 0) {
-      return await this.usuarioRepository.update(id, updateUsuarioDto);
-    } else {
-      const updateUsuario = {
-        ...userFound,
-        ...updateUsuarioDto,
-        ciclopaseos,
-      };
-
-      return await this.usuarioRepository.save(updateUsuario);
-    }
+    return await this.usuarioRepository.update(id, updateUsuarioDto);
   }
 
   async remove(id: number) {
@@ -137,7 +151,21 @@ export class UsuariosService {
     if (!tokenFound) {
       throw new ConflictException('Token not found');
     }
-
+    
     return tokenFound;
+  }
+
+  async sacarIdRegional(id: number) {
+    const userFound = await this.usuarioRepository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!userFound) {
+      throw new ConflictException('User not found');
+    } 
+
+    return userFound.regional.id;
   }
 }

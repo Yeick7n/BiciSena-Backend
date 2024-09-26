@@ -38,4 +38,5 @@ export class BicicletasController {
     return this.bicicletasService.findBiciByRegional(id);
   }
 
+  
 }

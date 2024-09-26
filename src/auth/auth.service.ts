@@ -77,10 +77,6 @@ export class AuthService {
       throw new Error('Credenciales incorrectas');
     }
 
-    if (!emailFound.isConfirmed) {
-      throw new Error('Email no confirmado');
-    }
-
     const payload = {
       user: emailFound.usuario,
       sub: emailFound.id,
@@ -88,7 +84,7 @@ export class AuthService {
 
     emailFound.isLogueado = true;
 
-    await this.usuariosService.update(emailFound.id, emailFound)
+    await this.usuariosService.updateUsuario(emailFound.id, emailFound)
 
     return {
       access_token: await this.jwtService.signAsync(payload),
