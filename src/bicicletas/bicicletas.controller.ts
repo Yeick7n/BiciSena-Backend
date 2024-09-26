@@ -32,4 +32,10 @@ export class BicicletasController {
   remove(@Param('id') id: number) {
     return this.bicicletasService.remove(id);
   }
+
+  @Get('obtenerPorRegional/:id')
+  findBiciByRegional(@Param('id') id: number) {
+    return this.bicicletasService.findBiciByRegional(id);
+  }
+
 }
