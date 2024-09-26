@@ -27,7 +27,7 @@ export class Usuario {
     @Column({ nullable: true })
     confirmToken: string;
 
-    @Column({ default: false })
+    @Column({ default: true })
     isConfirmed: boolean;
 
     @Column({ default: false })
